@@ -6,16 +6,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PersoonTest {
-    private Persoon baas;
-    private Persoon medewerker;
-    private Persoon assistent;
+public class WerknemerTest {
+    private Werknemer baas;
+    private Werknemer medewerker;
+    private Werknemer assistent;
 
     @BeforeEach
     void setup() {
-        baas = new Persoon("Mark","Den Haag",10000, new Afdeling());
-        medewerker = new Persoon("Caroline", "Delft", 4000, new Afdeling());
-        assistent = new Persoon("Klaas");
+        baas = new Werknemer("Mark","Den Haag", new Afdeling(),10000);
+        medewerker = new Werknemer("Caroline", "Delft", new Afdeling(), 4000);
+        assistent = new Werknemer("Klaas");
     }
 
     @Test
@@ -95,16 +95,5 @@ public class PersoonTest {
     void getMaandsalarisNaSetMaandsalarisNegatiefGeeft0() {
         medewerker.setMaandsalaris(-100);
         assertEquals(0, medewerker.getMaandsalaris());
-    }
-
-    @Test
-    @DisplayName("getAfdelinggetAfdelingsPlaatsGeeftDeOpgegevenWaardeTerug")
-    void getAfdelingGetAfdelingPlaatsGeeftDeOpgegevenWaardeTerug() {
-        String naam = "Test";
-
-        Persoon persoon = new Persoon("Mark", "Den Haag", 10000,
-                new Afdeling(naam, "Testeradeel"));
-
-        assertEquals(naam, persoon.getAfdeling().getAfdelingNaam());
     }
 }

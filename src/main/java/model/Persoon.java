@@ -5,30 +5,25 @@ package model;
  * iemand die werk doet voor ons bedrijf
  */
 public class Persoon {
-    private static final double GRENSWAARDE_BONUS = 4500.0;
     private static final String DEFAULT_NAAM = "Onbekend";
     private static final String DEFAULT_WOONPLAATS = "Onbekend";
-    private static final double DEFAULT_MAANDSALARIS = 0.0;
-    private static final int MAANDEN_PER_JAAR = 12;
 
     private static int aantalPersonen = 0;
 
     private int personeelsnummer;
     private String naam;
     private String woonplaats;
-    private double maandsalaris;
     private Afdeling afdeling;
 
-    public Persoon(String naam, String woonplaats, double maandsalaris, Afdeling afdeling) {
+    public Persoon(String naam, String woonplaats, Afdeling afdeling) {
         this.personeelsnummer = ++aantalPersonen;
         this.naam = naam;
         this.woonplaats = woonplaats;
-        setMaandsalaris(maandsalaris);
         this.afdeling = afdeling;
     }
 
     public Persoon(String naam) {
-        this(naam, DEFAULT_WOONPLAATS, DEFAULT_MAANDSALARIS, new Afdeling());
+        this(naam, DEFAULT_WOONPLAATS, new Afdeling());
     }
 
     public Persoon() {
@@ -36,11 +31,12 @@ public class Persoon {
     }
 
     public double berekenJaarinkomen() {
-        return MAANDEN_PER_JAAR * maandsalaris;
+        return 0.0;
     }
 
-    public boolean heeftRechtOpBonus() {
-        return maandsalaris >= GRENSWAARDE_BONUS;
+    @Override
+    public String toString() {
+        return String.format("%s woont in %s en werkt op %s", this.naam, this.woonplaats, this.afdeling);
     }
 
     public static int getAantalPersonen() {
@@ -53,25 +49,5 @@ public class Persoon {
 
     public String getNaam() {
         return naam;
-    }
-
-    public String getWoonplaats() {
-        return woonplaats;
-    }
-
-    public double getMaandsalaris() {
-        return maandsalaris;
-    }
-
-    public void setMaandsalaris(double maandsalaris) {
-        if (maandsalaris < 0) {
-            System.err.printf("Het maandsalaris mag niet negatief zijn, wordt nu %f.\n", DEFAULT_MAANDSALARIS);
-            maandsalaris = DEFAULT_MAANDSALARIS;
-        }
-        this.maandsalaris = maandsalaris;
-    }
-
-    public Afdeling getAfdeling() {
-        return afdeling;
     }
 }
