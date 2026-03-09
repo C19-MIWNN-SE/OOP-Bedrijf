@@ -33,7 +33,7 @@ public abstract class Persoon {
     public abstract double berekenJaarinkomen();
 
     public String toonJaarinkomen() {
-        return String.format("%s verdient %.2f per jaar\n", naam, berekenJaarinkomen());
+        return String.format("%s verdient %.2f per jaar", naam, berekenJaarinkomen());
     }
 
     @Override

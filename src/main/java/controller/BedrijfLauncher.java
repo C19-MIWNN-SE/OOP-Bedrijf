@@ -5,6 +5,8 @@ import model.Persoon;
 import model.Werknemer;
 import model.ZZPer;
 
+import java.util.ArrayList;
+
 /**
  * @author Vincent Velthuizen
  * Spelen met de elementen in een bedrijf
@@ -19,28 +21,24 @@ public class BedrijfLauncher {
                 new Afdeling("Documentatie", "Gouda")
         };
 
-        Werknemer baas = new Werknemer("Mark", "Den Haag", afdelingen[2], 10000);
-        Werknemer medewerker = new Werknemer("Caroline", "Delft", afdelingen[1], 4000);
-        ZZPer assistent = new ZZPer("Klaas", "Diemen", afdelingen[3], 50);
-        ZZPer projectleider = new ZZPer("Ronald", "Zaandam", afdelingen[0], 80);
+        ArrayList<Persoon> personen = new ArrayList<>();
 
-        assistent.huurIn(160);
-        projectleider.huurIn(320);
+        personen.add(new Werknemer("Mark", "Den Haag", afdelingen[2], 10000));
+        personen.add(new Werknemer("Angelique", "Rotterdam", afdelingen[2], 5000));
+        personen.add(new Werknemer("Caroline", "Delft", afdelingen[1], 4000));
+        personen.add(new ZZPer("Klaas", "Diemen", afdelingen[3], 50.00));
+        personen.add(new ZZPer("Ronald", "Zaandam", afdelingen[0], 80.00));
+        personen.add(new ZZPer("Jannie", "Utrecht", afdelingen[0], 60.00));
+        personen.add(new ZZPer("Anne", "Zwolle", afdelingen[0], 40.00));
 
-        Persoon[] personen = {
-                baas,
-                medewerker,
-                assistent,
-                projectleider
-        };
-
-        System.out.printf("Het aantal personen in het bedrijf is %d\n", Persoon.getAantalPersonen());
-        for (int persoon = 0; persoon < personen.length; persoon++) {
-            System.out.println(personen[persoon]);
+        for (Persoon persoon : personen) {
+            if (persoon instanceof ZZPer) {
+                ((ZZPer) persoon).huurIn(320);
+            }
         }
 
-        for (int persoon = 0; persoon < personen.length; persoon++) {
-            System.out.println(personen[persoon].toonJaarinkomen());
+        for (Persoon persoon : personen) {
+            System.out.println(persoon.toonJaarinkomen());
         }
     }
 
