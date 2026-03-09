@@ -3,6 +3,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,11 +20,19 @@ public class WerknemerTest {
         assistent = new Werknemer("Klaas");
     }
 
-    @Test
-    void berekenJaarinkomenMaandsalaris10000Uitkomst120000() {
+    @ParameterizedTest(name = "maandsalaris {0} geeft jaarsalaris {1}")
+    @DisplayName("berekenJaarinkomen")
+    @CsvSource({
+            "    0,      0",
+            " 4000,  48000", // zonder bonus krijg ik 12 keer het maandsalaris
+            " 4500,  58500", // dit is precies de bonus
+            " 5000,  65000", // dus vanaf hier is het 13 keer het maandsalaris
+            "10000, 130000",
+            "20000, 260000"
+    })
+    void berekenJaarinkomen(double maandsalaris, double verwachtJaarinkomen) {
         // arrange
-        baas.setMaandsalaris(10000);
-        double verwachtJaarinkomen = 120000;
+        baas.setMaandsalaris(maandsalaris);
 
         // act
         double daadwerkelijkJaarinkomen = baas.berekenJaarinkomen();
@@ -31,31 +41,6 @@ public class WerknemerTest {
         assertEquals(verwachtJaarinkomen, daadwerkelijkJaarinkomen, .1);
     }
 
-    @Test
-    void berekenJaarinkomenMaandsalaris5000Uitkomst60000() {
-        // arrange
-        baas.setMaandsalaris(5000);
-        double verwachtJaarinkomen = 60000;
-
-        // act
-        double daadwerkelijkJaarinkomen = baas.berekenJaarinkomen();
-
-        // assert
-        assertEquals(verwachtJaarinkomen, daadwerkelijkJaarinkomen, .1);
-    }
-
-    @Test
-    void berekenJaarinkomenMaandsalaris0Uitkomst0() {
-        // arrange
-        assistent.setMaandsalaris(0);
-        double verwachtJaarinkomen = 0;
-
-        // act
-        double daadwerkelijkJaarinkomen = assistent.berekenJaarinkomen();
-
-        // assert
-        assertEquals(verwachtJaarinkomen, daadwerkelijkJaarinkomen, .1);
-    }
 
     @Test
     void personeelsnummerVanNieuwPersoonIsAantalPersonenPlus1() {
@@ -63,7 +48,7 @@ public class WerknemerTest {
         int verwachtPersoneelsNummer = Persoon.getAantalPersonen() + 1;
 
         // act
-        Persoon nieuwPersoon = new Persoon();
+        Persoon nieuwPersoon = new Werknemer();
 
         // assert
         assertEquals(verwachtPersoneelsNummer, nieuwPersoon.getPersoneelsnummer());
