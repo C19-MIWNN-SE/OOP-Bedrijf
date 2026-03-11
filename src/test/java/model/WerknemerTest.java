@@ -48,7 +48,7 @@ public class WerknemerTest {
         int verwachtPersoneelsNummer = Persoon.getAantalPersonen() + 1;
 
         // act
-        Persoon nieuwPersoon = new Werknemer();
+        Persoon nieuwPersoon = new Werknemer("Klaas");
 
         // assert
         assertEquals(verwachtPersoneelsNummer, nieuwPersoon.getPersoneelsnummer());

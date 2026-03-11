@@ -4,7 +4,7 @@ package model;
  * @author Vincent Velthuizen
  * Toon personen die als zelfstandige voor ons bedrijf werken
  */
-public class ZZPer extends Persoon {
+public class ZZPer extends Persoon implements Oproepbaar {
     private double uurtarief;
     private int urenGewerkt;
 
@@ -14,6 +14,7 @@ public class ZZPer extends Persoon {
         this.urenGewerkt = 0;
     }
 
+    @Override
     public void huurIn(int uren) {
         urenGewerkt += uren;
     }
