@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,6 +40,13 @@ public class WerknemerTest {
 
         // assert
         assertEquals(verwachtJaarinkomen, daadwerkelijkJaarinkomen, .1);
+    }
+
+    @ParameterizedTest(name = "Foutieve maandsalaris: {0}")
+    @ValueSource(doubles = {-100, -200, -10000, -1 * Math.E})
+    @DisplayName("negatief maandsalaris is niet toegestaan")
+    void negatiefMaandsalarisIsNietToegestaan(double maandsalaris) {
+        assertThrows(IllegalArgumentException.class, () -> baas.setMaandsalaris(maandsalaris));
     }
 
 

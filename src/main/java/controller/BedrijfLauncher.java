@@ -4,6 +4,7 @@ import model.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 /**
  * @author Vincent Velthuizen
@@ -12,42 +13,35 @@ import java.util.Collections;
 public class BedrijfLauncher {
 
     public static void main(String[] args) {
-        Afdeling[] afdelingen = {
-                new Afdeling("Uitvoering", "Hilversum"),
-                new Afdeling("Support", "Amsterdam"),
-                new Afdeling("Management", "Almere"),
-                new Afdeling("Documentatie", "Gouda")
-        };
+        Scanner toetsenbord = new Scanner(System.in);
 
-        ArrayList<Persoon> personen = new ArrayList<>();
+        System.out.print("Geef de naam: ");
+        String naam = toetsenbord.nextLine();
 
-        personen.add(new Werknemer("Mark", "Den Haag", afdelingen[2], 10000));
-        personen.add(new Werknemer("Angelique", "Rotterdam", afdelingen[2], 5000));
-        personen.add(new Werknemer("Caroline", "Delft", afdelingen[1], 4000));
-        personen.add(new ZZPer("Klaas", "Diemen", afdelingen[3], 50.00));
-        personen.add(new ZZPer("Ronald", "Zaandam", afdelingen[0], 80.00));
-        personen.add(new ZZPer("Jannie", "Utrecht", afdelingen[0], 60.00));
-        personen.add(new ZZPer("Anne", "Zwolle", afdelingen[0], 40.00));
-        personen.add(new Vrijwilliger("Ambi", "Amsterdam", afdelingen[0]));
-        personen.add(new Vrijwilliger("Naledi", "Gaborone", afdelingen[1]));
-        personen.add(new Vrijwilliger("Ceren", "Istanboel", afdelingen[2]));
-        personen.add(new Vrijwilliger("Haining", "Shaoxing", afdelingen[3]));
+        System.out.print("Geef de woonplaats: ");
+        String woonplaats = toetsenbord.nextLine();
 
-        for (Persoon persoon : personen) {
-            if (persoon instanceof Oproepbaar) {
-                ((Oproepbaar) persoon).huurIn(160);
+        System.out.print("Geef de naam van de afdeling: ");
+        String afdelingsnaam = toetsenbord.nextLine();
+
+        System.out.print("Geef de plaats van de afdeling: ");
+        String afdelingsplaats = toetsenbord.nextLine();
+
+        Afdeling afdeling = new Afdeling(afdelingsnaam, afdelingsplaats);
+
+        Werknemer werknemer = null;
+        while (werknemer == null) {
+            System.out.print("Geef de maandsalaris: ");
+            double maandsalaris = toetsenbord.nextDouble();
+
+            try {
+                werknemer = new Werknemer(naam, woonplaats, afdeling, maandsalaris);
+                System.out.println(werknemer);
+            } catch (IllegalArgumentException illegalArgumentException) {
+                System.out.println(illegalArgumentException.getMessage());
+            } finally {
+                System.out.println("Je invoer is op de juiste wijze afgehandeld.");
             }
-
-            if (persoon instanceof ZZPer) {
-                ((ZZPer) persoon).huurIn(160);
-            }
-        }
-
-        Collections.sort(personen);
-
-        for (Persoon persoon : personen) {
-            System.out.println(persoon);
-            System.out.println(persoon.toonJaarinkomen());
         }
     }
 
